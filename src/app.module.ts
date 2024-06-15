@@ -9,6 +9,9 @@ import { Secretaire } from './entities/secretaire.entity';
 import { Rdv } from './entities/rdv.entity';
 import { DossierMedical } from './entities/dossier-medical.entity';
 import { Hopital } from './entities/hopital.entity';
+import { HopitalService } from './hopital/hopital.service';
+import { HopitalModule } from './hopital/hopital.module';
+import { HopitalController } from './hopital/hopital.controller';
 
 @Module({
   imports: [
@@ -16,9 +19,9 @@ import { Hopital } from './entities/hopital.entity';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'votre_utilisateur', // Remplacez par votre nom d'utilisateur MySQL
-      password: 'votre_mot_de_passe', // Remplacez par votre mot de passe MySQL
-      database: 'nom_de_votre_base_de_donnees', // Remplacez par le nom de votre base de données
+      username: 'stage', // Remplacez par votre nom d'utilisateur MySQL
+      password: 'p@sser123', // Remplacez par votre mot de passe MySQL
+      database: 'STAGE', // Remplacez par le nom de votre base de données
       entities: [
         Utilisateur,
         Patient,
@@ -28,7 +31,7 @@ import { Hopital } from './entities/hopital.entity';
         DossierMedical,
         Hopital,
       ],
-      synchronize: true, // Ne pas utiliser en production - peut supprimer/modifier les données
+      synchronize: false, // Ne pas utiliser en production - peut supprimer/modifier les données
     }),
     TypeOrmModule.forFeature([
       Utilisateur,
@@ -39,8 +42,9 @@ import { Hopital } from './entities/hopital.entity';
       DossierMedical,
       Hopital,
     ]),
+    HopitalModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, HopitalController],
+  providers: [AppService, HopitalService],
 })
 export class AppModule {}
