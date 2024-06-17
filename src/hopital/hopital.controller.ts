@@ -7,15 +7,19 @@ import { HopitalService } from './hopital.service';
 export class HopitalController {
     constructor(private hopitalService: HopitalService) {}
 
+    // @Get()
+    // async findAll(@Query() query: any): Promise<Hopital[]> {
+    //     if (query.id) {
+    //         return [await this.hopitalService.findOne(query.id)];
+    //     } else if (query.nom) {
+    //         return this.hopitalService.findByFilter({ nom: query.nom });
+    //     } else {
+    //         return this.hopitalService.findAll();
+    //     }
+    // }
     @Get()
-    async findAll(@Query() query: any): Promise<Hopital[]> {
-        if (query.id) {
-            return [await this.hopitalService.findOne(query.id)];
-        } else if (query.nom) {
-            return this.hopitalService.findByFilter({ nom: query.nom });
-        } else {
-            return this.hopitalService.findAll();
-        }
+    async findAll(@Query() query: { nom?: string; adresse?: string }): Promise<Hopital[]> {
+        return this.hopitalService.findByFilter(query);
     }
 
     @Get(':id')

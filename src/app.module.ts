@@ -12,6 +12,7 @@ import { Hopital } from './entities/hopital.entity';
 import { HopitalService } from './hopital/hopital.service';
 import { HopitalModule } from './hopital/hopital.module';
 import { HopitalController } from './hopital/hopital.controller';
+import { MedecinsModule } from './medecins/medecins.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { HopitalController } from './hopital/hopital.controller';
       Hopital,
     ]),
     HopitalModule,
+    MedecinsModule,
   ],
   controllers: [AppController, HopitalController],
   providers: [AppService, HopitalService],

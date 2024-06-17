@@ -1,13 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
-import { Utilisateur } from './utilisateur.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Utilisateur } from './utilisateur.entity'; // Assurez-vous d'importer correctement
+import { Hopital } from './hopital.entity'; // Assurez-vous d'importer correctement
 
-@Entity()
+@Entity({ name: 'Medecin' })
 export class Medecin {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Utilisateur)
-  @JoinColumn()
+  @Column()
+  id_utilisateur: number;
+
+  @ManyToOne(() => Utilisateur, { eager: true })
+  @JoinColumn({ name: 'id_utilisateur' })
   utilisateur: Utilisateur;
 
   @Column()
@@ -15,4 +19,11 @@ export class Medecin {
 
   @Column()
   ville: string;
+
+  @Column()
+  id_hopital: number;
+
+  @ManyToOne(() => Hopital, { eager: true })
+  @JoinColumn({ name: 'id_hopital' })
+  hopital: Hopital;
 }

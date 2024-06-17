@@ -1,8 +1,9 @@
 // hopital.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { Hopital } from 'src/entities/hopital.entity';
+
 
 @Injectable()
 export class HopitalService {
@@ -49,7 +50,18 @@ export class HopitalService {
     // async findByFilter(filter: { id?: number; nom?: string }): Promise<Hopital[]> {
     //     return this.hopitalRepository.find(filter);
     // }
-    async findByFilter(filter: { id?: number; nom?: string }): Promise<Hopital[]> {
-        return this.hopitalRepository.find({ where: filter });
+    async findByFilter(filter: { nom?: string; adresse?: string }): Promise<Hopital[]> {
+        const where: any = {};
+
+        if (filter.nom) {
+            where.nom = Like(`%${filter.nom}%`);
+        }
+
+        if (filter.adresse) {
+            where.adresse = Like(`%${filter.adresse}%`);
+        }
+
+        return this.hopitalRepository.find({ where });
     }
+    
 }
