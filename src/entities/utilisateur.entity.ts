@@ -1,11 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Medecin } from './medecin.entity';
 
 @Entity({ name: 'Utilisateurs' })
 export class Utilisateur {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -25,4 +26,7 @@ export class Utilisateur {
 
   @Column()
   status: string;
+
+  @OneToMany(() => Medecin, medecin => medecin.utilisateur)
+  medecins: Medecin[];
 }
