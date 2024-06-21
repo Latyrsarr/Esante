@@ -18,6 +18,9 @@ import { UtilisateursService } from './utilisateurs/utilisateurs.service';
 import { UtilisateursModule } from './utilisateurs/utilisateurs.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
+import { RdvService } from './rdv/rdv.service';
+import { RdvController } from './rdv/rdv.controller';
+import { RdvModule } from './rdv/rdv.module';
 
 @Module({
   imports: [
@@ -56,8 +59,9 @@ import { AuthService } from './auth/auth.service';
     MedecinsModule,
     UtilisateursModule,
     AuthModule,
+    RdvModule,
   ],
-  controllers: [AppController, HopitalController],
-  providers: [AppService, HopitalService, UtilisateursService, AuthService],
+  controllers: [AppController, HopitalController, RdvController],
+  providers: [AppService, HopitalService, UtilisateursService, AuthService, RdvService],
 })
 export class AppModule {}

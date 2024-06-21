@@ -1,16 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Patient } from './patient.entity';
 import { Medecin } from './medecin.entity';
 
-@Entity()
+@Entity('Rdv')
 export class Rdv {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Patient)
+  @Column()
+  id_patient: number;
+
+  @ManyToOne(() => Patient, patient => patient.rdvs, { eager: true })
+  @JoinColumn({ name: 'id_patient' })
   patient: Patient;
 
-  @ManyToOne(() => Medecin)
+  @Column()
+  id_medecin: number;
+
+  @ManyToOne(() => Medecin, medecin => medecin.rdvs, { eager: true })
+  @JoinColumn({ name: 'id_medecin' })
   medecin: Medecin;
 
   @Column()
@@ -22,7 +30,6 @@ export class Rdv {
   @Column()
   statut: string;
 
-  @Column('text')
+  @Column()
   motif: string;
 }
-
